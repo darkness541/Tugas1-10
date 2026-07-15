@@ -9,7 +9,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            StudentSeeder::class,   // Panggil StudentSeeder kamu
+            DepartmentSeeder::class,
+            StudentSeeder::class,
         ]);
     }
 }
