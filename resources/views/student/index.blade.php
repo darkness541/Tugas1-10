@@ -10,6 +10,7 @@
                 <th>No</th>
                 <th>Name</th>
                 <th>NIM</th>
+                <th>Department</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -19,9 +20,15 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $student->name }}</td>
                     <td>{{ $student->nim }}</td>
+                    <td>{{ $student->department->name ?? '-' }}</td>
                     <td>
-                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{{ route('student.edit', $student) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{{ route('student.destroy', $student) }}" method="POST" class="d-inline"
+                            onsubmit="return confirm('Yakin hapus data ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

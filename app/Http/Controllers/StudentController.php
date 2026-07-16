@@ -9,7 +9,9 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::all();
+        // Eager Loading untuk mengatasi N+1 Problem
+        $students = Student::with('department')->latest()->get();
+        
         return view('student.index', compact('students'));
     }
 
@@ -31,5 +33,5 @@ class StudentController extends Controller
                          ->with('success', 'Student berhasil ditambahkan');
     }
 
-    // Edit, Update, Delete akan dilanjutkan di video ini juga
+    // Method edit, update, destroy bisa ditambahkan sesuai kebutuhan
 }
