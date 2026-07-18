@@ -10,17 +10,33 @@
 
 <body>
 
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">UNITAMA</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="{{ route('student.index') }}">Student</a>
-                <a class="nav-link" href="{{ route('department.index') }}">Department</a>
-                <a class="nav-link" href="{{ route('lecture.index') }}">Lecturer</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('student.index') }}">Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('department.index') }}">Department</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('lecture.index') }}">Lecturer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('organization.index') }}">Organization</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
+    <!-- Main Content -->
     <div class="container my-5">
         {{ $slot }}
     </div>
