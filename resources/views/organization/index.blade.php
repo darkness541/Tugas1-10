@@ -21,9 +21,8 @@
                     <td>{{ $organization->company }}</td>
                     <td>
                         <a href="{{ route('organization.edit', $organization) }}" class="btn btn-warning btn-sm">Edit</a>
-
                         <form action="{{ route('organization.destroy', $organization) }}" method="POST" class="d-inline"
-                            onsubmit="return confirm('Yakin hapus data ini?')">
+                            onsubmit="return confirm('Yakin hapus?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>

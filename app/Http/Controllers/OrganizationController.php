@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Organization;
 use App\Models\Lecture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrganizationController extends Controller
 {
@@ -28,10 +29,20 @@ class OrganizationController extends Controller
             'lecture_id' => 'required|exists:lectures,id',
         ]);
 
-        Organization::create($request->all());
+        try {
+            DB::beginTransaction();
 
-        return redirect()->route('organization.index')
-                         ->with('success', 'Organization berhasil ditambahkan');
+            $organization = Organization::create($request->all());
+
+            DB::commit();
+
+            return redirect()->route('organization.index')
+                             ->with('success', 'Organization berhasil ditambahkan');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('organization.create')
+                             ->with('error', 'Data gagal ditambahkan. ' . $e->getMessage());
+        }
     }
 
     public function edit(Organization $organization)
@@ -48,16 +59,25 @@ class OrganizationController extends Controller
             'lecture_id' => 'required|exists:lectures,id',
         ]);
 
-        $organization->update($request->all());
+        try {
+            DB::beginTransaction();
 
-        return redirect()->route('organization.index')
-                         ->with('success', 'Organization berhasil diupdate');
+            $organization->update($request->all());
+
+            DB::commit();
+
+            return redirect()->route('organization.index')
+                             ->with('success', 'Organization berhasil diupdate');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->route('organization.edit', $organization)
+                             ->with('error', 'Data gagal diupdate. ' . $e->getMessage());
+        }
     }
 
     public function destroy(Organization $organization)
     {
         $organization->delete();
-
         return redirect()->route('organization.index')
                          ->with('success', 'Organization berhasil dihapus');
     }

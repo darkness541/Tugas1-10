@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('company');
             $table->foreignId('lecture_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();   // ← Kolom ini yang hilang
             $table->timestamps();
         });
     }
